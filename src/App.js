@@ -1,4 +1,3 @@
-import Potato from './Potao'
 
 function App() {
   return (
@@ -6,6 +5,12 @@ function App() {
       <h1>Hello react!!!!!!!!</h1>
       <Potato />
     </div>
+  );
+}
+
+function Potato(){
+  return(
+  <h3>I love potato</h3>
   );
 }
 
