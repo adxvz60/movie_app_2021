@@ -3,12 +3,12 @@ function App() {
   return (
     <div className="App">
       <h1>Hello react!!!!!!!!</h1>
-      <Potato />
+      <Movie />
     </div>
   );
 }
 
-function Potato(){
+function Movie(){
   return(
   <h3>I love potato</h3>
   );
