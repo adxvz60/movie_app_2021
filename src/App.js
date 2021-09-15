@@ -4,13 +4,13 @@ function App() {
     <div className="App">
       <h1>Hello react!!!!!!!!</h1>
       <Food fav = "Kimchi" something={true} papapa={['hello', 1, 2, true]}/>
-      <Food />
       
     </div>
   );
 }
 
-function Food(){
+function Food(props){
+  console.log(props);
   return(
   <h3>I love potato</h3>
   );
