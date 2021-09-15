@@ -3,12 +3,14 @@ function App() {
   return (
     <div className="App">
       <h1>Hello react!!!!!!!!</h1>
-      <Movie />
+      <Food fav = "Kimchi" something={true} papapa={['hello', 1, 2, true]}/>
+      <Food />
+      
     </div>
   );
 }
 
-function Movie(){
+function Food(){
   return(
   <h3>I love potato</h3>
   );
