@@ -3,70 +3,58 @@
 ### 학습내용
 <b>Master Branch를 Main Branch로 이름을 변경<b>
 
-> 변경 방법
-    '''
-    git config --global init.defaultBranch main
-    '''
-    변경후 config를 확인한다. 우선순위는 Local>Global>System순, Local설정 파일이 제일 높다
-    '''
-    System 설정 파일 확인 git config --system --list
-    Global 설정 파일 확인 git config --global --list
-    Local 설정 파일 확인 git config --local --list
-    모든 설정 확인 git config --list
-    '''
-
-    기존에 것을 바꾸는법
-    '''
-    git branch -m master main
-    '''
+>변경 방법
+git config --global init.defaultBranch main
+변경후 config를 확인한다. 우선순위는 Local>Global>System순, Local설정 파일이 제일 높다   
+System 설정 파일 확인 git config --system --list
+Global 설정 파일 확인 git config --global --list
+Local 설정 파일 확인 git config --local --list
+모든 설정 확인 git config --list
+기존에 것을 바꾸는법git branch -m master main
     
 <b>클론코드 만드는법</b>
 
-> 깃허브 저장소에서 코드의 주소를 받아온다. 
-    '''
-    git clone "주소이름"
-    '''
-    이후 복사된 프로젝트 폴더로 들어간다.
-    터미널에서 노드모듈을 다시 받아준다
-    '''
-    npm install
-    설치후
-    npm start
-    로 실행을 확인한다
-    '''
+>깃허브 저장소에서 코드의 주소를 받아온다. 
+git clone "주소이름"
+이후 복사된 프로젝트 폴더로 들어간다.
+터미널에서 노드모듈을 다시 받아준다
+npm install 설치후
+npm start로 실행을 확인한다
 
 <b>이미지 상대경로 사용법</b>
+
 > 상대경로를 사용하면 코드가 길어져 코드가 복잡해진다
     public 폴더에 image폴더를 만든후
-    필요한 소스코드에 <img src="image/이미지이름">형식으로 사용하면 된다
+    필요한 소스코드에 <img src=image/이미지이름>형식으로 사용하면 된다
 
 <b>map함수 반환값 보기</b>
->
-    App컴포넌트에 console값을 넣어서 반환값 확인('console.log(foodILike.map(renderFood))')
-    console값은 map함수가 반환한 값을 보는것 이므로 원래대로 복구 시킨다
-    리스트의 각 원소는 유일값을 가져야하는데 원소가 리스에 포함되어서 유일성이 사라져 오류 발생
-    이를 해결하기위해 배열 원소에 id값을 추가
-    Food 컴포넌트에 key props를 추가('key={dish.id}')
-    img관련 메세지는 img엘리먼트에 alt속성 추가 ('alt={name}')
+
+>App컴포넌트에 console값을 넣어서 반환값 확인('console.log(foodILike.map(renderFood))')
+console값은 map함수가 반환한 값을 보는것 이므로 원래대로 복구 시킨다
+리스트의 각 원소는 유일값을 가져야하는데 원소가 리스에 포함되어서 유일성이 사라져 오류 발생
+이를 해결하기위해 배열 원소에 id값을 추가
+Food 컴포넌트에 key props를 추가('key={dish.id}')
+img관련 메세지는 img엘리먼트에 alt속성 추가 ('alt={name}')
 
 <b>prop-types도입하기</b>
->   
-    음식 데이터에 rating값 추가하기('rating: n')
-    터미널에서 npm install prop-types 설치
-    터미널에서 npm install prop-types 입력
-    package.json에서 "dependencies"에서 "prop-types"가 추가 되어있으면 설치가 잘 된것이다.
-    Food.propTypes를 작성후 실행
-    rating 값은number인데 string값이 였기 때문에 오류 발생
-    rating:PrpTypes.string.isRequired을 rating: PropTypes.number.isRequired로 수정
-    Food컴포넌트의 picture props의 이름을 image로 변경
-    Food컴포넌트의 picture props가 아니라 image props를 전달했기에 에러발생
+
+>음식 데이터에 rating값 추가하기('rating: n')
+터미널에서 npm install prop-types 설치
+터미널에서 npm install prop-types 입력
+package.json에서 "dependencies"에서 "prop-types"가 추가 되어있으면 설치가 잘 된것이다.
+Food.propTypes를 작성후 실행
+rating 값은number인데 string값이 였기 때문에 오류 발생
+rating:PrpTypes.string.isRequired을 rating: PropTypes.number.isRequired로 수정
+Food컴포넌트의 picture props의 이름을 image로 변경
+Food컴포넌트의 picture props가 아니라 image props를 전달했기에 에러발생
 
 
 
 <b>state</b>
--props는 정적인 데이터만 다를수 있지만
--state는 동적인 데이터를 다루기 위해 사용 할 수 있다.
--state는 class형 컴포넌트에서 사용가능하다.
+
+- props는 정적인 데이터만 다를수 있지만
+- state는 동적인 데이터를 다루기 위해 사용 할 수 있다.
+- state는 class형 컴포넌트에서 사용가능하다.
 
 <b>state로 숫자 증감 만들기1</b>
 >  
