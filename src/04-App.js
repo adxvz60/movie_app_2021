@@ -23,8 +23,10 @@ const renderFood = dish => <Food
   rating={dish.rating}
   />
 
-Food.prototypes{
-  //name: 
+Food.prototypes = {
+  name: ProTypes.string.isRequired,
+  picture: ProTypes.string.isRequired,
+  rating: ProTypes.number
 }
 
 function renderFood(foo){
