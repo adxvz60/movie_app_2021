@@ -11,10 +11,8 @@
 - Local 설정 파일 확인 git config --local --list
 - 모든 설정 확인 git config --list
 - 기존에 것을 바꾸는법 git branch -m master main
-    
-<b>클론코드 만드는법</b>
 
->
+>클론코드 만드는법
 1. 깃허브 저장소에서 코드의 주소를 받아온다. 
 2. git clone "주소이름"
 3. 이후 복사된 프로젝트 폴더로 들어간다.
@@ -22,14 +20,13 @@
 5. npm install 설치후
 6. npm start로 실행을 확인한다
 
-<b>이미지 상대경로 사용법</b>
->
+
+>이미지 상대경로 사용법
 - 상대경로를 사용하면 코드가 길어져 코드가 복잡해진다
 - public 폴더에 image폴더를 만든후
 - 필요한 소스코드에 <img src= >형식으로 사용하면 된다
 
-<b>map함수 반환값 보기</b>
->
+>map함수 반환값 보기
 1. App컴포넌트에 console값을 넣어서 반환값 확인('console.log(foodILike.map(renderFood))')
 2. console값은 map함수가 반환한 값을 보는것 이므로 원래대로 복구 시킨다
 3. 리스트의 각 원소는 유일값을 가져야하는데 원소가 리스에 포함되어서 유일성이 사라져 오류 발생
@@ -37,8 +34,7 @@
 5. Food 컴포넌트에 key props를 추가('key={dish.id}')
 6. img관련 메세지는 img엘리먼트에 alt속성 추가 ('alt={name}')
 
-<b>prop-types도입하기</b>
->
+>prop-types도입하기
 1. 음식 데이터에 rating값 추가하기('rating: n')
 2. 터미널에서 npm install prop-types 설치
 3. 터미널에서 npm install prop-types 입력
@@ -50,16 +46,13 @@
 9. Food컴포넌트의 picture props가 아니라 image props를 전달했기에 에러발생
 
 
-
-<b>state</b>
-
+>state
 - props는 정적인 데이터만 다를수 있지만
 - state는 동적인 데이터를 다루기 위해 사용 할 수 있다.
 - state는 class형 컴포넌트에서 사용가능하다.
 
-<b>state로 숫자 증감 만들기1</b>
 
-> 
+>state로 숫자 증감 만들기1 
 1. 클래스형 컴포넌트 작성 (import React, {Component} from 'react' 및 export default App 외 전부 삭제)
 2. Component를 상속받은 App클래스 생성
 3. 클래스형 컴포넌트가 되려면 App클래스가 Component를 상속받아야한다
@@ -67,9 +60,9 @@
 5. class안에 state를 정의한다('state={ }')
 6. state에 count키와 키값을 추가하고 {this.state.count}를 사용하여 출력한다
 
-<b>state로 숫자 증감 만들기2</b>
 
->
+
+>state로 숫자 증감 만들기2
 1. <Add>버튼과 <Minus>버튼을 추가한다(JSX는 하나로 묶어야 함으로 <div>태그를 사용)
 2. 화살표 함수를 사용하여 add와 minus를 눌렀을때 console에 출력되는지 확인
 3. onClick속성을 사용하여 클릭시 함수가 호출되도록 console를 통해 확인한다
