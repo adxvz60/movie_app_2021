@@ -1,3 +1,5 @@
+import PropTypes from 'prop-types'
+
 const foodILike = [
   {
     id : 1,
@@ -18,15 +20,15 @@ const foodILike = [
 const renderFood = dish => <Food
   key={dish.id}
   name={dish.name}
-  picture={dish.image}
+  image={dish.image}
   alt={dish.alt}
   rating={dish.rating}
   />
 
-Food.prototypes = {
-  name: ProTypes.string.isRequired,
-  picture: ProTypes.string.isRequired,
-  rating: ProTypes.number
+Food.propTypes = {
+  name: PropTypes.string.isRequired,
+  picture: PropTypes.string.isRequired,
+  rating: PropTypes.number
 }
 
 function renderFood(foo){
@@ -43,11 +45,11 @@ function App() {
   );
 }
 
-function Food({name, picture, alt, rating}){
+function Food({name, image, alt, rating}){
   return(
   <div>
     <h2>I love {name}</h2>
-    <h4>{rationg}/5.0</h4>
+    <h4>{rating}/5.0</h4>
     <img alt={alt} src={picture} />
   </div>
   );
