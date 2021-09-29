@@ -23,14 +23,12 @@
 6. npm start로 실행을 확인한다
 
 <b>이미지 상대경로 사용법</b>
-
 >
 - 상대경로를 사용하면 코드가 길어져 코드가 복잡해진다
 - public 폴더에 image폴더를 만든후
-- 필요한 소스코드에 <img src=image/이미지이름>형식으로 사용하면 된다
+- 필요한 소스코드에 <img src= >형식으로 사용하면 된다
 
 <b>map함수 반환값 보기</b>
-
 >
 1. App컴포넌트에 console값을 넣어서 반환값 확인('console.log(foodILike.map(renderFood))')
 2. console값은 map함수가 반환한 값을 보는것 이므로 원래대로 복구 시킨다
@@ -40,7 +38,6 @@
 6. img관련 메세지는 img엘리먼트에 alt속성 추가 ('alt={name}')
 
 <b>prop-types도입하기</b>
-
 >
 1. 음식 데이터에 rating값 추가하기('rating: n')
 2. 터미널에서 npm install prop-types 설치
@@ -62,7 +59,7 @@
 
 <b>state로 숫자 증감 만들기1</b>
 
->  
+> 
 1. 클래스형 컴포넌트 작성 (import React, {Component} from 'react' 및 export default App 외 전부 삭제)
 2. Component를 상속받은 App클래스 생성
 3. 클래스형 컴포넌트가 되려면 App클래스가 Component를 상속받아야한다
