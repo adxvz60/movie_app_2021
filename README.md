@@ -8,8 +8,54 @@
     3.componentDidUpadate()함수 선언후, console.log로 문장 출력 확인
     4.componentWillUnmount()함수 선언후, console.log로 문장 출력 확인
 
+<b>영화앱 맛보기</b>
 
+    1.App.js새로 만든후 App컴포넌트 추가
+    2.isLoading state를 추가, isLoading state는 컴포넌트가 마운트되면 true가 나오게 교제와 같이 작성
+    3.isLoading state에 따라 'Loading','we are ready'출력
+    4.setTime()함수를 사용하여 5초후 isLoading state를 false로 변경하도록 작성
+    5.영화 데이터 자장할 곳 찾기
+    6.movies state를 교제와 같이 만들기
 
+<b>영화 api사용하기</b>
+
+    1.axios설치(npm install axios)
+    2.브라우저에 yts.lt/api에 들어간후 아래의 'https://yts.mx/api/v2/list_movies.json'주소 복사
+    3.크롬 웹스토어에서 json viewer설치
+    5.'https://github.com/serranoarevalo/yts-proxy'에 접속후 리드미에 있는 주소 확인
+    4.'https://yts.mx/api/v2/list_movies.json'주소에 접속한후 코드 확인
+    5.yts-proxy.now.sh/list_movies.json에 접속후 코드 확인
+    6.'/movie_detail.jason'를 입력한후 코드확인
+        -api가 movie_id라는 조건을 요구하기 때문에 아무것도 보이지 않는다
+    7.yts.mx/api#movie_details에 접속하면 movie_details Endpoint는 movie_id가 필수 이다
+    8.App.js에서 axios를 import한 뒤 componentDidMount()에서 axios로 api를 호출한다
+    9.axios.get()함수에 url을 전달하여 api를 호출한다
+    10.devTools(f12)에 [Network]탭에서 Name이라는 항목에 list_movies.json이라고 나온 부분을 확인한다
+    11.getMovies()함수를 만들고, 그 함수 안에서 axios.get()이 실행되도록 작성
+    12.getMovies()함수에 async와 await 붙이기 위해 교제와 같이 코드 작성
+    13.시간이 필요하다를 알리기 위해서는 async, await 키워드가 필요하다.
+
+<b>영화 데이터 화면에 출력</b>
+
+    1.axios.get()으로 잡은 영화 데이터가 movies 변수 안에 있으므로 console.log를 통해 확인
+    2.devTools에 data키를 열여서 movies 배열 확인하기
+    3.교제와 같이 const코드를 작성후 console.log를 지우고 this.setState({movies:movies})를 추가
+    4.{movies:movies}는 키와 대입할 변수의 이름이 같으므로 {movies}축약 가능하여 this.setState를 축약
+    5.isLoading state를 false에서 true로 얻데이트 하기위해 교제와 같이 코드 작성
+
+<b>Moive컴포넌트 추가</b>
+
+    1.src폴더에서 Movie.js파일을 추가후 기본 코드작성
+    2.movie컴포넌트는 state가 필요하지 않으므로 함수형 컴포넌트로 작성한다.
+    3.movie에 넘어와야하는 영화 데이터를 정의하고 관리하기위해 prop-types를 사용
+    4.yts-proxy.now.sh/list_movies.json에서 영화 데이터를 다시 확인한후 데이터중 필요한 것만 반영한다
+    5.Movie.propTypes에 첫번째로 자료형이 number인 id를 추가하고 number이니 PropTypes.number.isRequired를 작성한다
+    6. year도 자료형이 number 이므로 PropTypes.number.isRequired를 추가하고 title,summary,poster는 string이므로
+    PropTypes.string.isRequired를 추가한다
+    7.yts.It.api#list_movies에 접속한다음 Encoding Paramerters를 확인후 sort_by라는 Parameter본다
+    8.sort_by Parameter를 사용하기 위해 Examples를 참고한다
+    9.yts-proxy.now.sh/list_movies.json?sort_by=rating에서 rating을 확인
+    10.axios.get()뒤에 ?sort_by=rating을 추가
 
 ## [ 9월 29일 ]
 ### 학습내용
