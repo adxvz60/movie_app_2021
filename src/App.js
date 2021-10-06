@@ -6,6 +6,12 @@ class App extends React.Component{
         isLodaing: true
     }
 
+    componentDidMount() {
+        setTimeout(() => {
+            this.setState({isLoading: false})
+        }, 5000)
+    }
+
     render(){
         const{ isLoading } = this.state
         return(
