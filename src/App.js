@@ -2,24 +2,15 @@
 import React from "react";
 
 class App extends React.Component{
-    constructor(props) {
-        super(props)
-        console.log('constructor');
-    }
-
-    componentDidMount(){
-        console.log('componentDidMount');
-    }
-
-    componentDidUpdate(){
-        console.log('componentDidUpdate');
+    state = {
+        isLodaing: true
     }
 
     render(){
-        console.log('render')
+        const{ isLoading } = this.state
         return(
             <div>
-                <h1>Hello</h1>
+                {isLoading ? 'Loading...' : 'We are ready'}
             </div>
         )
     }
