@@ -1,4 +1,16 @@
 # 유호철 201840221
+## [ 10월 06일 ]
+### 학습내용
+<b>클래스형 컴포넌트 알아보기</b>
+
+    1.constructor()함수를 선언후 console.log로 문장 출력
+    2.componentDidMount()함수 선언후, console.log로 문장 출력 및 확인
+    3.componentDidUpadate()함수 선언후, console.log로 문장 출력 확인
+    4.componentWillUnmount()함수 선언후, console.log로 문장 출력 확인
+
+
+
+
 ## [ 9월 29일 ]
 ### 학습내용
 <b>Master Branch를 Main Branch로 이름을 변경<b>
