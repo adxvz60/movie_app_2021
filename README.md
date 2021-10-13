@@ -16,6 +16,7 @@
     3.movies.map에 화살표 함수를 추가하고 console값을 추가하여 아무것도 반환하지 않는지 console탭에서 확인해본다
     4.App.js에 Movie를 import하고 movies,map()에 전달된 함수가 Movie를 반환하도록 한다 (import Movie from './Movie' 상대경로 import)
     5.Movie컴포넌트에 props를 전달 받도록 작성
+
     '''
     return (
                             <Movie
@@ -29,6 +30,8 @@
                             />
                             )                   
     '''
+
+    
 
 
 
