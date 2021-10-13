@@ -1,4 +1,37 @@
 # 유호철 201840221
+## [ 10월 13일 ]
+### 학습내용
+
+> [오류]
+    '''
+    Typo in static class property declaration react/no-typos
+    '''
+    발생시 .PropTypes를 .propTypes로 변경 
+
+<b>Moive컴포넌트</b>
+
+    1.movie컴포넌트에 id,title,year,summary,poster props를 출력할 수 있도록 추가
+    2.this.state있는 const에 movies값을 추가하고 'we are ready'의 출력을 movies.map()으로 변경
+    3.movies.map에 화살표 함수를 추가하고 console값을 추가하여 아무것도 반환하지 않는지 console탭에서 확인해본다
+    4.App.js에 Movie를 import하고 movies,map()에 전달된 함수가 Movie를 반환하도록 한다 (import Movie from './Movie' 상대경로 import)
+    5.Movie컴포넌트에 props를 전달 받도록 작성
+    '''
+    return (
+                            <Movie
+                            key = {movie.id}
+                            //id ={movie.id}
+                            year={movie.year}
+                            title={movie.title}
+                            summary={movie.summary}
+                            poster={movie.medium_cover_image}
+                            genres={movie.genres}
+                            />
+                            )                   
+    '''
+
+
+
+
 ## [ 10월 06일 ]
 ### 학습내용
 <b>클래스형 컴포넌트 알아보기</b>
