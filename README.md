@@ -3,6 +3,7 @@
 ### 학습내용
 
 > [오류]
+
     '''
     Typo in static class property declaration react/no-typos
     '''
