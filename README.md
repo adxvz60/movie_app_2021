@@ -3,38 +3,49 @@
 ### 학습내용
 
 > [오류]
-
-    '''
-    Typo in static class property declaration react/no-typos
-    '''
-    발생시 .PropTypes를 .propTypes로 변경 
+    Typo in static class property declaration react/no-typos발생시 
+    .PropTypes를 .propTypes로 변경 
 
 <b>Moive컴포넌트</b>
 
     1.movie컴포넌트에 id,title,year,summary,poster props를 출력할 수 있도록 추가
     2.this.state있는 const에 movies값을 추가하고 'we are ready'의 출력을 movies.map()으로 변경
     3.movies.map에 화살표 함수를 추가하고 console값을 추가하여 아무것도 반환하지 않는지 console탭에서 확인해본다
-    4.App.js에 Movie를 import하고 movies,map()에 전달된 함수가 Movie를 반환하도록 한다 (import Movie from './Movie' 상대경로 import)
+    4.App.js에 Movie를 import하고 movies.map()에 전달된 함수가 Movie를 반환하도록 한다 (import Movie from './Movie' 상대경로 import)
     5.Movie컴포넌트에 props를 전달 받도록 작성
+    6.console탭에 'Warning:Each child in a list should have a unique "key" prop' 오류를 확인
+    - 해당오류는 key props 떄문에 발생한다
+    7.key props를추가하여 오류해결을 console에서 확인 한다. key = {movie.id}
 
-    '''
-    return (
-                            <Movie
-                            key = {movie.id}
-                            //id ={movie.id}
-                            year={movie.year}
-                            title={movie.title}
-                            summary={movie.summary}
-                            poster={movie.medium_cover_image}
-                            genres={movie.genres}
-                            />
-                            )                   
-    '''
+<b>Movie 스타일링<b>
 
-    
+    1.App컴포넌트 JSX의 바깥쪽을 <section class="container">로 Loding...을 <div class="loder">로 교제에
+    나와있는데로 수정한다.
+    2.Movie컴포넌트에 title,year,summary를 알맞는 HTML태그로 감싼다
+    3.Movie컴포넡트에 전체를 감싸는 div태그를 추가하고 그아래에 img태그를 추가한후 title,year,summary를 감싸는
+    div에 class="movie__data"를 추가한다.
+    4.완성된 코드에서는 id props가 불필요하므로 제거한다.
+    5.h3태그에 style 속성을 추가하고 backgroundColor:"red"속성을 추가하여 title색상이 변경되었는지 확인한다.
+    6.src폴더에 App과 Movie의 css를 추가한후 App과Movie컴포넌트에 import한다.
+    7.App.css파일에 배경색을 어둡게 변경시키고 적용을 확인하다.
 
+<b>영화앱 다듬기</b>
 
-
+    1.App.css의 내용을 전부 없앤다.
+    2.영화의 장르를 보기위해 runtime아래에 genres를 추가해준다
+    3.Movie컴포넌트에 genres props를 추가(genres는 문자배열 이므로 PropTypes.string.isRequired를 추가)하고 App컴포넌트에 넘겨준다. 이후 console에서 확인하면 두가지 waring이 발생한다.
+    -Invalid DOM property 'class'. Did you mean 'className'?
+    -Failed prop type: The prop 'genres' is marked as required in 'Movie', but its value is 'undefined'.
+    를 확인한다.
+    4.첫번째는 JSX에서 사용한 속성중 class속성이 className으로 되야한다는 내용이다.
+    5.두번째는 genres props가 isRequired인데 undefined로 넘어 왔다는 내용이다.
+    6.class속성은 className으로 변경하고, genre가 잘 넘어오도록 App에 Movie컴포넌트로 genres = {movie.genr-es}를 추가한
+    7.추가한후 console로 경고메세지가 사라졌는지 확인한다.
+    8.className과 비슷한 경우로 HTML의 label엘리먼트에 for라는 속성을 추가할 수 있지만 자바스크립트 에서 for문과
+    겹출수 있으믈로 JSX에서는 <label for="name">이 아니라 <label htmlFor="name">로 작성해야 한다.
+    9.Movie컴포넌트에서 genres props가 배열이므로 map()함수를 사용한다.
+    10.genres props를 ul,li태그로 교제와 같이 감싼후 console탭에 waring을 확인한다.
+    -Each child in a list should have a unique "key" prop.
 
 ## [ 10월 06일 ]
 ### 학습내용
