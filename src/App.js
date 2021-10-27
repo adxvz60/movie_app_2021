@@ -1,10 +1,15 @@
-//import React from 'react'
-//import axios from "axios";
-import Home from './routes/Home';
+
+import { HashRouter,Route } from 'react-router-dom'
+
+import './App.css'
+import About from './routes/About'
 
 function App(){
-    return<Home />
+    return(
+        <HashRouter>
+            <Route path="/about"  component={About}/>
+        </HashRouter>
+    )
 }
-
 
 export default App;
