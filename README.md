@@ -1,4 +1,60 @@
 # 유호철 201840221
+## [ 10DNJF 27D일]
+### 학습내용
+
+<b>영화앱 다듬기</b>
+
+    1.console탭에 오류는 key props추가하지 않아서 발생
+    -genre는 li엘리먼트에 제공할 key값이 없으므로 map함수에 두번째 인자를 전달
+    2.genres.map에 index값을 추가후 li엘리먼트에 key={index}추가
+    -genres.map((genre, index)), <li key={index} className='movie-genres'>{genre}</li> 로 수정
+    3.이후 console탭에 key props 오류가 있는지 확인
+
+<b>영화앱 스타일링</b>
+
+    1.App.css와 Movie.css를 교제와 같이 스타일링하기
+    -https://github.com/easysIT/do_it_clonecoding_movieapp/tree/master/clone-starter-kit-07/src에서 css코드 확인후 해석 해보기
+    2. 시놉시스에 글자수 제한두고 잘린부분은...으로 표현 위해 summary porps에 slice함수 추가
+    -<p className ='movie-summary'>{summary.slice(0,180)}...</p> 로 수정
+    3.브라우저 탭의 React App을 확인후 Moive App으로 바꾸기
+    4.index.html파일에서 title엘리먼트 안에 React를 Moive로 변경후 크롬 탭 확인하기 
+    -<title>Movie App</title>으로 수정
+
+<b>영화앱 여러 기능 추가하기</b>
+
+    1.화면 이동을 추가 하기위해 라우터 를 설치하기
+    -npm install react-router-dom으로 설치후 package.json에서 설치 되엇는지 확인하기
+    2.컴포넌트 역할에 맞게 파일 생성후 컴포넌트 분리하기
+    -conponent에는 moive.css및.js를 routes폴더에는 Home.js및About.js파일 생성
+    3.Home.js파일에 App.js내용을 복사하여 붙여놓은후 몇몇 소스 수정 및 추가 하기.
+    -export default Home,import Movie from '../components/Movie',import './Home.css',class Home extends React.Component
+    4.component폴더에 Home.css파일을 생성후 교제와 같이 파일 작성하기
+    5.App.js를 초기화후 Home을 반환하도록 코드 수정후 실행화면 확인
+    6.App에 HashRouter와Route 를 임포트 한후 HashRouter컴포넌트가 Route컴포넌트를 반환 하도록수정한다
+    -주소창에 #/이 붙은걸을 확인하기
+    7.About컴포넌트를 임포트후 Route컴포넌트에 path와component props전달하기
+    -<Route path="/about"  component={About} />로 수정
+    8.About.js를 교제와 같이 수정후 라우터 테스트 해보기
+    -주소창에 /about을 추가하여 Route컴포넌트에 전달한 props확인하기
+    9.App컴포넌트에 Home컴포넌트 임포트후 또 다른 Route컴포넌트 추가하기.
+    -<Route path="/" component={Home}/> /를 넣은 이유는 기본으로 보여줄 컴포넌트가 Home이기때문이다
+    10.영화앱 화면이랑 /about을 추가후 화면 확인해보기
+    -/about으로 접속하면 About컴포넌트와 Moive컴포넌트와 같이 출력된다
+    11.Route컴포넌트를 교제와 같이 추가후 라우터 테스트 해보기
+    12.추가한 Route컴포넌트를 원래대로 돌려넣은후 path props가 /인 Route컴포넌트에 exact={ture}추가하기
+    -<Route path="/" exact={true} component={Home}/>로 수정
+    13.이후 /about에 접속하여 About컴포넌트만 보이는 확인
+    14.routes폴더에 About.css추가후 교제와 같이 css작성하고 About.js에 임포트및 class지정하기
+
+<b>내비게이션 만들기</b>
+
+    1.component폴더에 Navigation.js추가후 a엘리먼트를 반환하도록 교제와 같이 작성
+    2.App컴포넌트에 Navigation.js임포트 시킨후 <HashRouter></HashRouter>사이에 포함 시키기
+    3.화면에 Home,about링크를 작동하는지 확인한다
+    -링크를 누를 때마다 리액트가 죽고 새 페이지가 열리는 문제가 발생한다.
+    4.Navigation.js에 Link컴포넌트를 임포트후 a엘리먼트를 Link엘리먼트로 변경해준다
+    5.영화앱을 실행시켜 Home,about링크가 잘 작동 되는지 확인한다
+
 ## [ 10월 13일 ]
 ### 학습내용
 
