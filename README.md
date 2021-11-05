@@ -11,7 +11,7 @@
 
     1.about.js에 props를 추가하여 어떤 props가 넘어오는지 확인한다.
     2.Navigation.js에 /about으로 보내주는 Link컴포넌트의 to props를 수정한다
-    - <Link to={{pathname:'/about', state:{fromNavigation:true}}}>About</Link>
+    - <Link to={{pathname:'/about', state:{fromNavigation:true}}}>About</Link>로 수정
     3./about으로 이동후 console탭에서 location을 확안해 state키에 보내준 값을 확인한다.
     4.Navigation컴포넌트를 원래대로 돌려 놓는다
     5.Movie컴포넌트에 Link컴포넌트를 임포트하고 Link컴포넌트에 props를 추가한다.
