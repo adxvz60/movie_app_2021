@@ -11,33 +11,11 @@
 
     1.about.js에 props를 추가하여 어떤 props가 넘어오는지 확인한다.
     2.Navigation.js에 /about으로 보내주는 Link컴포넌트의 to props를 수정한다
-    '''js
-    <Link to={{pathname:'/about', state:{fromNavigation:true}}}>About</Link>
-    '''
+    - <Link to={{pathname:'/about', state:{fromNavigation:true}}}>About</Link>
     3./about으로 이동후 console탭에서 location을 확안해 state키에 보내준 값을 확인한다.
     4.Navigation컴포넌트를 원래대로 돌려 놓는다
     5.Movie컴포넌트에 Link컴포넌트를 임포트하고 Link컴포넌트에 props를 추가한다.
-    '''js
-    <div className='movie'>
-            <Link
-                to={{pathname:'/movie-detail',
-                state:{year,title,summary,poster,genres},
-                }}
-            >
-                <img src={poster} alt={title} title={title}/>
-                <div className ='movie-data'>
-                    <h3 className ='movie-title' >{title}</h3>
-                    <h5 className ='movie-year'>{year}</h5>
-                    <ul className='movie-genres'>
-                        {genres.map((genre, index) => {
-                            return <li key={index} className='movie-genres'>{genre}</li>
-                        })}
-                    </ul>
-                    <p className ='movie-summary'>{summary.slice(0,180)}...</p>
-                </div>
-            </Link>
-        </div>
-    '''
+    -div태그 아래에 <Link to={{pathname:'/movie-detail', state:{year,title,summary,poster,genres},}}>를 추가한다.
     6.route폴더에 Detail.js추가하고 Detail 컴포넌트에 console을 추가하여 Movie 컴포넌트에서 Link 컴포넌트가 보내준 영화 데이터를 확인한다.
     7.App.js에 Detail컴포넌트를 임포트하고 Route컴포넌트에 Detail컴포넌트를 교제와 같이 추가한다.
     8.영화 카드를 클릭해서 /movie-detail주소를 확인하고 화면에 hello라는 Detail 컴포넌트가 출력되는지 확인한다.
