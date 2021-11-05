@@ -1,4 +1,49 @@
 # 유호철 201840221
+## [ 11월 03일
+### 학습내용
+<b>네비게이션 스타일링</b>
+
+    1.App.js파일에 Navigation컴포넌트가 HashRouter바깥에 위치했는 확인후 바깥쪽에 있으면 안쪽으로 변경한다
+    2.component파일에 Navigation.css파일을 추가하고 내용을 교제와 같이 작성한다.
+    3.이후 Navigation.js에 css를 임포트후 div태그에 클래스를 추가한다
+
+<b>영화 상세 정보 기능 만들기</b>
+
+    1.about.js에 props를 추가하여 어떤 props가 넘어오는지 확인한다.
+    2.Navigation.js에 /about으로 보내주는 Link컴포넌트의 to props를 수정한다
+    '''js
+    <Link to={{pathname:'/about', state:{fromNavigation:true}}}>About</Link>
+    '''
+    3./about으로 이동후 console탭에서 location을 확안해 state키에 보내준 값을 확인한다.
+    4.Navigation컴포넌트를 원래대로 돌려 놓는다
+    5.Movie컴포넌트에 Link컴포넌트를 임포트하고 Link컴포넌트에 props를 추가한다.
+    '''js
+    <div className='movie'>
+            <Link
+                to={{pathname:'/movie-detail',
+                state:{year,title,summary,poster,genres},
+                }}
+            >
+                <img src={poster} alt={title} title={title}/>
+                <div className ='movie-data'>
+                    <h3 className ='movie-title' >{title}</h3>
+                    <h5 className ='movie-year'>{year}</h5>
+                    <ul className='movie-genres'>
+                        {genres.map((genre, index) => {
+                            return <li key={index} className='movie-genres'>{genre}</li>
+                        })}
+                    </ul>
+                    <p className ='movie-summary'>{summary.slice(0,180)}...</p>
+                </div>
+            </Link>
+        </div>
+    '''
+    6.route폴더에 Detail.js추가하고 Detail 컴포넌트에 console을 추가하여 Movie 컴포넌트에서 Link 컴포넌트가 보내준 영화 데이터를 확인한다.
+    7.App.js에 Detail컴포넌트를 임포트하고 Route컴포넌트에 Detail컴포넌트를 교제와 같이 추가한다.
+    8.영화 카드를 클릭해서 /movie-detail주소를 확인하고 화면에 hello라는 Detail 컴포넌트가 출력되는지 확인한다.
+    이후 console탭에서 location->state에 Movie 컴포넌트에서 Link를 통해 보내준 데이터를 확인한다.
+    9.주소창에 /movie-detail로 바로 접속후 console탭에 영화 데이터가 들어있는지 확인한다.
+    -영화의 데이터가 없어 state가 undefined으로 나온다.
 ## [ 10월 27일]
 ### 학습내용
 
