@@ -1,5 +1,22 @@
 # 유호철 201840221
-## [ 11월 03일
+## [ 11월 12일]
+### 학습내용
+<b>영화앱 상세 정보 기능 만들기</b>
+
+    1.주소창에 localhost:3000를 입력하여 이동한 다음 console탭에서 history에 출력된 값을 확인한다.
+    2.Detail을 컴포넌트로 변경후 location, history키를 구조 분해 할당한다.
+    3.loaction이 undefined인 경우history.push("/")를 실행한다.
+    4./movie-detail입력한후 Home으로 돌아가는지 확인한다.
+    5.location.state.title을 출력하도록 교재와 같이 코드를 작성한다.
+    6./movie-detail로 다시 들어가 확인한다.
+    - TypeError. Cannot read property 'title' of undefined라는 오류가 발생한다.
+    -render() -> componentDidMount()의 순서로 함수가 실행되기 때문이다
+    7.location함수가 없으면 null을 반환하여 Home으로 돌아오도록 if문을 사용하여 수정한다.
+
+<b>영화앱 배포하기</b>
+
+
+## [ 11월 03일 ]
 ### 학습내용
 <b>네비게이션 스타일링</b>
 
