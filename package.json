@@ -7,6 +7,7 @@
     "@testing-library/react": "^11.2.7",
     "@testing-library/user-event": "^12.8.3",
     "axios": "^0.22.0",
+    "gh-pages": "^3.2.3",
     "prop-types": "^15.7.2",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
@@ -17,9 +18,8 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "predploy":"npm run build",
-    "deploy":"gh-pages -d build"
-
+    "predploy": "npm run build",
+    "deploy": "gh-pages -d build"
   },
   "eslintConfig": {
     "extends": [
@@ -39,5 +39,5 @@
       "last 1 safari version"
     ]
   },
-  "homepage":"https://adxvz60.github.io/movie_app_2021"
+  "homepage": "https://adxvz60.github.io/movie_app_2021"
 }
