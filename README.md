@@ -1,5 +1,5 @@
 # 유호철 201840221
-## [ 11월 12일]
+## [ 11월 12일 ]
 ### 학습내용
 <b>영화앱 상세 정보 기능 만들기</b>
 
@@ -15,6 +15,30 @@
 
 <b>영화앱 배포하기</b>
 
+    1.package.json에 homepage키와 키값을 browserslist 키 아래 추가한다.
+    2.script에 키값명령어를 추가한다.
+    3.git add ., git commit -m "",  git push origin master 명령어를 추가하여 깃허브에 업로드 한다
+    4.npm install gh-pages로 gh-pages를 설치한다.
+    5.git remote -v로 업로드한 깃허브 저장소의 주소를 확인한다.
+    6.npm run deploy로 영화앱을 배포한다.
+    7.https://계정.github.io/저장소 이름를 입력하여 영화앱을 확인한다.
+
+<b>CDN: Content Delivery Network 혹은 Content Distribution Network</b>
+    
+    1. html파일을 새로만든다 
+    2. minify파일 링크를 사용한다.
+    3. crossorigin적용한다.
+    4. babel을 CDN으로 적용한다.
+    5. type을 text/babel로 설정한다.
+
+<b>state가 포함된 component</b>
+
+    1.동적인 데이터는 this.state로 접근 할 수 있다.
+    2.state가 변하면 redner에서 다시 호출되어 화면이 갱신된다.
+    3.화면이 켜져잇는 동안 초를 카운트 하는 앱은 timer이다.
+    4.state를 0으로 출력하여 초기화 한다
+    5.componentDidMount()로 1초에 한번씩tick()메소드를 호출한다.
+    6.tick메서드는 setState()를 통해 1씩 증가시킨다.
 
 ## [ 11월 03일 ]
 ### 학습내용
