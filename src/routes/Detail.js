@@ -2,15 +2,15 @@ import react from "react";
 
 class Detail extends React.Component {
     componentDidMount(){
-        const{location,history} = this.props
+        const{ location, history} = this.props
         if(location.state === undefined){
             history('/')
         }
     }
+
+    render (){
+        const { location } = this.props
+        return<span>{location.state.title}</span>
+    }
 }
-    return (
-        <span>{location, history}</span>
-    )
-
-
 export default Detail;
