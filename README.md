@@ -22,7 +22,7 @@ handleChange는 모든 키보드 입력마다 React의 state를 갱신해서 보
 다음과 같은 시간순으로 동작한다.
 > 유저입력 > handleChange > React의 state갱신 > form element가 React state를 참조
 
-'''jsx
+```jsx
 class TodoApp extends React.Component {
   constructor(props) {
     super(props);
@@ -52,7 +52,7 @@ class TodoApp extends React.Component {
       </div>
     )
   }
-'''
+```
 - render메소드에서 초기 렌더링을 실행한다.
 - onChange에서 input에 입력되는 값으로 state상태 변경을 준비한다.
 - 입력된 값은 state의 text:''에 입시로 저장된다.
@@ -61,14 +61,14 @@ class TodoApp extends React.Component {
 - button을 클릭하면 #뒤의 숫자를 증가시킨다.
 - 리스트는 배열로 저장되기 때문에  item.length로 list의 수를 확인한다.
 - input area의 이벤트가  발생하면 handleChange(e)가 동작하여 State의 text값을 변경한다.
-'''jsx
+```jsx
 handleChange(e) {
     this.setState({ text: e.target.value });
   }
-'''
+```
 - “Add #x”을 클릭하면 리스트에 1을 더해서 버튼에 출력한다.
 - 크롬 DevTool에서 stete가 변화하는것을 실시간으로 확인해본다.
-'''jsx
+```jsx
 handleSubmit(e) {
     e.preventDefault();
     if (this.state.text.length === 0) {
@@ -84,14 +84,14 @@ handleSubmit(e) {
     }))
   }
 }
-'''
+```
 - handleSubmit은 버튼이 클릭될때 발생하는 event처리를 한다.
 > handleSubmit(e)에서 e.preventDefault()메소드를 사용하는 이유
     브라우저에서 양식을 제출할 때는 기본적으로 브라우저의 새로 고침이 발생하는데,
     React나 SPA(single page application)의 경우 필요 없는 동작임으로 필요없는 동작을 방지하기위해 사용한다.
 
 <b>TodoList Component</b>
-'''jsx
+```jsx
 class TodoList extends React.Component {
   render() {
     return (
@@ -103,17 +103,17 @@ class TodoList extends React.Component {
     )
   }
 }
-'''
+```
 - TodoList class를 생성한다
 - ul 안에 추가된 task를 li로 출력한다
 - 앞서 저장한 id값은 key props로 사용한다.
 - ReactDOM으로 랜더링만 하면 끝난다
-'''jsx
+```jsx
 ReactDOM.render(
   <TodoApp />,
   document.getElementById('todos-example')
 );
-'''
+```
 
 <b>key props 역할 리마인드</b>
 - key는 props의 안정적으로 사용할 수 있도록 고유성을 부여하기 위해 필요하다
