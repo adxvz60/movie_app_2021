@@ -14,7 +14,7 @@
 - props와 state를 사용해서 간단한 Todo 애플리케이션을 만들 수 있습니다.
 - 이벤트 핸들러들이 인라인으로 각각 존재하는 것처럼 보이지만, 실제로는 이벤트 위임을 통해 하나로 구현된다.
 
-<b>Todo List 예제</b>
+<b>Todo List 예제</b>  
 Todoapp과 Todolist 두개의 컴포넌트로 구성
 
 handleChange는 모든 키보드 입력마다 React의 state를 갱신해서 보여준다.
