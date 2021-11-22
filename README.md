@@ -128,7 +128,7 @@ ReactDOM.render(
 <b>Markdown 예제<b>
 - 외부컴포넌트를 사용한 markdown에디터 이다
 - 외부 플러그인은 Remarkable을 사용함으로 CDN으로 링크를 추가한다.
-'''jsx
+```jsx
 
     class MarkdownEditor extends React.Component {
     constructor(props) {
@@ -172,7 +172,7 @@ ReactDOM.render(
     <MarkdownEditor />,
     document.getElementById('markdown-example')
     )
-'''
+```
 
 ## [ 11월 12일 ]
 ### 학습내용
