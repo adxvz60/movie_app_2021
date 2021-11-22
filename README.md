@@ -129,6 +129,7 @@ ReactDOM.render(
 - 외부컴포넌트를 사용한 markdown에디터 이다
 - 외부 플러그인은 Remarkable을 사용함으로 CDN으로 링크를 추가한다.
 '''jsx
+
     class MarkdownEditor extends React.Component {
     constructor(props) {
         super(props);
