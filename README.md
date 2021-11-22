@@ -129,48 +129,48 @@ ReactDOM.render(
 - 외부컴포넌트를 사용한 markdown에디터 이다
 - 외부 플러그인은 Remarkable을 사용함으로 CDN으로 링크를 추가한다.
 '''jsx
-class MarkdownEditor extends React.Component {
-  constructor(props) {
-    super(props);
-    this.md = new Remarkable();
-    this.handleChange = this.handleChange.bind(this);
-    this.state = { value: 'Hello, **world**!' };
-  }
+    class MarkdownEditor extends React.Component {
+    constructor(props) {
+        super(props);
+        this.md = new Remarkable();
+        this.handleChange = this.handleChange.bind(this);
+        this.state = { value: 'Hello, **world**!' };
+    }
 
-  handleChange(e) {
-    this.setState({ value: e.target.value });
-  }
+    handleChange(e) {
+        this.setState({ value: e.target.value });
+    }
 
-  getRawMarkup() {
-    return { __html: this.md.render(this.state.value) };
-  }
+    getRawMarkup() {
+        return { __html: this.md.render(this.state.value) };
+    }
 
-  render() {
-    return (
-      <div className="MarkdownEditor">
-        <h3>Input</h3>
-        <label htmlFor="markdown-content">
-          Enter some markdown
-        </label>
-        <textarea
-          id="markdown-content"
-          onChange={this.handleChange}
-          defaultValue={this.state.value}
-        />
-        <h3>Output</h3>
-        <div
-          className="content"
-          dangerouslySetInnerHTML={this.getRawMarkup()}
-        />
-      </div>
-    );
-  }
-}
+    render() {
+        return (
+        <div className="MarkdownEditor">
+            <h3>Input</h3>
+            <label htmlFor="markdown-content">
+            Enter some markdown
+            </label>
+            <textarea
+            id="markdown-content"
+            onChange={this.handleChange}
+            defaultValue={this.state.value}
+            />
+            <h3>Output</h3>
+            <div
+            className="content"
+            dangerouslySetInnerHTML={this.getRawMarkup()}
+            />
+        </div>
+        );
+    }
+    }
 
-ReactDOM.render(
-  <MarkdownEditor />,
-  document.getElementById('markdown-example')
-);
+    ReactDOM.render(
+    <MarkdownEditor />,
+    document.getElementById('markdown-example')
+    )
 '''
 
 ## [ 11월 12일 ]
