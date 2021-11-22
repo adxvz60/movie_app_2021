@@ -87,7 +87,7 @@ handleSubmit(e) {
 ```
 - handleSubmit은 버튼이 클릭될때 발생하는 event처리를 한다.
 > handleSubmit(e)에서 e.preventDefault()메소드를 사용하는 이유
-    브라우저에서 양식을 제출할 때는 기본적으로 브라우저의 새로 고침이 발생하는데,
+> >브라우저에서 양식을 제출할 때는 기본적으로 브라우저의 새로 고침이 발생하는데,
     React나 SPA(single page application)의 경우 필요 없는 동작임으로 필요없는 동작을 방지하기위해 사용한다.
 
 <b>TodoList Component</b>
