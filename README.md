@@ -1,4 +1,131 @@
 # 유호철 201840221
+## [ 11월 24일 ]
+### 학습내용
+
+<b>creat-react-app으로, Remarkable 사용하기</b>
+
+  1.creat-react-app으로 markdown-editor 프로젝트를 생성한다.  
+  2.정상적으로 잘 작동하는지 확인한다.  
+  3.App.js에 필요없는 코드를 삭제후 React홈 문서의 코드를 복사한다.  
+  4.component의 이릉을 App으로 수정한다.  
+  5.rendering부분은 index.js에 위임한다.
+  6.App.js에 React와 Remarkable을 import한다.  
+  7.정상적으로 잘 작동하는지 확인한다.
+
+<b>Markdown코드 예제</b>  
+외부 컴포넌트를 사용하기 위해 생성자 내에 객체를 생성한다.
+```
+class MarkdownEditor extends React.Component {
+  constructor(props) {
+    super(props);
+    this.md = new Remarkable();
+    this.handleChange = this.handleChange.bind(this);
+    this.state = { value: 'Hello, **world**!' };
+  }
+```
+state를 이용하여 Remarkable에 변환할 마크다운 문장을 제출한다.  
+```
+handleChange(e) {
+    this.setState({ value: e.target.value });
+  }
+```
+글이 입력되면 handleChange 이벤트를 사용하여 state의 value를 갱신한다.   
+```
+getRawMarkup() {
+    return { __html: this.md.render(this.state.value) };
+  }
+```
+getRawMarkup() 메소드를 통해 html을 반환 받는다.  
+```
+render() {
+    return (
+      <div className="MarkdownEditor">
+        <h3>Input</h3>
+        <label htmlFor="markdown-content">
+          Enter some markdown
+        </label>
+        <textarea
+          id="markdown-content"
+          onChange={this.handleChange}
+          defaultValue={this.state.value}
+        />
+        <h3>Output</h3>
+        <div
+          className="content"
+          dangerouslySetInnerHTML={this.getRawMarkup()}
+        />
+      </div>
+    );
+  }
+}
+```
+
+<b>React 시작해보기</b>
+- React는 점진적으로 적용 할수 있도록 설계되어있어 필요한 만큼의 React를 사용할수 있다.
+- 온라인 코드 편집기를 사용할수 있다.
+- 대규모 애플리케이션에 권장되는 여러 개의JavaScript 툴체인들이 있다.
+- 각 툴 체인들은 많은 설정 없이 작동할 수 있고 풍부한 React 에코시스템을 최대한으로 사용할 수 있다
+
+<b>React 개요</b>
+
+  1.주요개념  
+  2.고급개념  
+  3.API참고  
+  4.Hook
+
+<b>React 주요 개념</b>
+
+1.Hello world
+- 가장 단순한 React예시
+-  ```ReactDOM.render(<h1>Hello, world!</h1>,document.getElementById('root'));```
+-  “Hello, world!”라는 제목을 보여주는 코드이다.
+
+2.JSX소개
+- 변수 ```const element = <h1>Hello, world!</h1>;```
+- 위 희한한 태그 문법은 문자열도,HTML도 아니다
+- JSX이며 JavaScript를 확장한 문법이다.
+- UI가 어떻게 생겨야 하는지 설명하기 위해 React와 함께 사용할 것을 권장한다. 
+- JSX라고 하면 템플릿 언어가 떠오를 수도 있지만, JavaScript의 모든 기능이 포함되어 있다.
+- JSX는 React “엘리먼트(element)”를 생성한다.
+
+3.JSX에 표현식 포함하기
+- ```const name = 'Josh Perez';```, ```const element = <h1>Hello, {name}</h1>;```
+- JSX의 중괄호 안에는 유효한 모든 JavaScript 표현식을 넣을 수 있다.
+- 예를 들어 2 + 2, user.firstName 또는 formatName(user) 등은 모두 유효한 JavaScript 표현식이다.
+```JSX
+//JSX예시
+function getGreeting(user) {
+  if (user) {
+    return <h1>Hello, {formatName(user)}!</h1>;
+  }
+  return <h1>Hello, Stranger.</h1>;
+}
+```
+
+3.엘리먼트 렌더링
+- 엘리먼트는 React 앱의 가장 작은 단위이다.
+```jsx
+<div id="root"></div>
+```
+- React 엘리먼트를 루트 DOM 노드에 렌더링하려면 둘 다 ReactDOM.render()로 전달해야한다.
+
+4.Components와 Props
+- 개념적으로 컴포넌트는 JavaScript 함수와 유사하다. 
+- “props”라고 하는 임의의 입력을 받은 후, 화면에 어떻게 표시되는지를 기술하는 React 엘리먼트를 반환한다.
+```jsx
+//함수 컴포넌트
+function Welcome(props) {
+  return <h1>Hello, {props.name}</h1>;
+}
+//클래스 컴포넌트
+class Welcome extends React.Component {
+  render() {
+    return <h1>Hello, {this.props.name}</h1>;
+  }
+}
+```
+- React의 관점에서 볼 때 위 두 가지 유형의 컴포넌트는 동일하다.
+
 ## [ 11월 17일 ]
 ### 학습내용
 #### 17일 수업을 개인사정으로 인해 빠져서 내용이 부실할 수도 있는 점 양해 부탁드립니다
@@ -195,8 +322,9 @@ ReactDOM.render(
     3.git add ., git commit -m "",  git push origin master 명령어를 추가하여 깃허브에 업로드 한다
     4.npm install gh-pages로 gh-pages를 설치한다.
     5.git remote -v로 업로드한 깃허브 저장소의 주소를 확인한다.
-    6.npm run deploy로 영화앱을 배포한다.
-    7.https://계정.github.io/저장소 이름를 입력하여 영화앱을 확인한다.
+    6.npm run build로 build파일을 생성한다.
+    7.npm run deploy로 영화앱을 배포한다.
+    8.https://계정.github.io/저장소 이름를 입력하여 영화앱을 확인한다.
 
 <b>CDN: Content Delivery Network 혹은 Content Distribution Network</b>
     
