@@ -118,7 +118,7 @@ render() {
 * 이 때는 렌더링 결과를 출력하는 대신 null을 반환하면 해결할 수 있다.  
 
 warning이 발생하면 warning메시지를 출력하고, 정상이면 아무 것도 출력하지 않는 앱이다.
-```jsx-
+```jsx
 function WarningBanner(props) {
   if (!props.warn) {
     return null;
