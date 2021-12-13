@@ -1,4 +1,772 @@
 # 유호철 201840221
+##  [ 12월 08일 ]
+### 학습내용
+
+<b>조건부 렌더링</b>
+- React에서는 렌더링 하려는 엘리먼트를 변수에 저장할 수 있다.
+- element란 리액트의 가장 작은 단위로 화면에 표시할 내용을 작성한다.  
+버튼 클릭으로 state를 로그인과 로그아웃으로 토글하는 앱이다.
+```jsx
+lass LoginControl extends React.Component {
+  constructor(props) {
+    super(props);
+    this.handleLoginClick = this.handleLoginClick.bind(this);
+    this.handleLogoutClick = this.handleLogoutClick.bind(this);
+    this.state = {isLoggedIn: false};
+  }
+
+  handleLoginClick() {
+    this.setState({isLoggedIn: true});
+  }
+
+  handleLogoutClick() {
+    this.setState({isLoggedIn: false});
+  }
+
+  render() {
+    const isLoggedIn = this.state.isLoggedIn;
+    let button;
+    if (isLoggedIn) {
+      button = <LogoutButton onClick={this.handleLogoutClick} />;
+    } else {
+      button = <LoginButton onClick={this.handleLoginClick} />;
+    }
+
+    return (
+      <div>
+        <Greeting isLoggedIn={isLoggedIn} />
+        {button}
+      </div>
+    );
+  }
+}
+
+ReactDOM.render(
+  <LoginControl />,
+  document.getElementById('root')
+);
+```
+- 먼저 버튼을 나타내는 두개의 컴포넌트를 작성한다.
+- LoginButton과 LogoutButton컴포넌트는 props를 전달받아 버튼의 이름을 갱신한다.
+- Main Component인 LoginControl은 stateful 컴포넌트로 만든다
+>  stateful component: state를 사용하는 컴포넌트. class형 컴포넌트를 말한다.  
+   stateless component: state를 사용하지 않는 컴포넌트. 함수형 컴포넌를 말한다.
+- state의 현재 상태에 맞게 LoginButton 혹은 LogoutButton을 변수에 저장한다.
+- button에 저장된 엘리먼트와 함께 첫 번째 예제에서 작성한 메시지를 함께 반환한다
+
+<b>논리 연산자 &&를 이용해서 if를 인라인으로 표현하기</b>
+- JSX안에는 중괄호를 이용해서 JS표현식을 포함 할 수 있다.
+- 논리 연산자 &&를 사용하면 쉽게 엘리먼트를 조건부로 넣을 수 있다.  
+메일 제목을 배열에 저장하고, 배열의 크기가 0보다 크면 읽지 않은
+메시지가 있다고 출력하는 앱이다.
+```jsx
+function Mailbox(props) {
+  const unreadMessages = props.unreadMessages;
+  return (
+    <div>
+      <h1>Hello!</h1>
+      {unreadMessages.length > 0 &&
+        <h2>
+          You have {unreadMessages.length} unread messages.
+        </h2>
+      }
+    </div>
+  );
+}
+
+const messages = ['React', 'Re: React', 'Re:Re: React'];
+ReactDOM.render(
+  <Mailbox unreadMessages={messages} />,
+  document.getElementById('root')
+);
+```
+- [조건] && [엘리먼트] 의 형태로 작성하여 조건이 true일 때만 엘리먼트를 출력한다.
+> 주의할 것은 문서의 예처럼 조건을 false로 넣으면 && 뒤의 표현식은 반환하
+지 않지만 false 표현식이 반환 된다는 것이다.
+
+<b>조건부 연산자로 if-else구문을 인라인으로 표현하기</b>
+- 엘리먼트를 조건부로 렌더링하는 또 다른 방법은 조건부 연산자인 condition ? true:
+false 를 사용하는 것이다.(삼항 연산자)
+```jsx
+render() {
+  const isLoggedIn = this.state.isLoggedIn;
+  return (
+    <div>
+      The user is <b>{isLoggedIn ? 'currently' : 'not'}</b> logged in.
+    </div>
+  );
+}
+```
+가독성은 좀 떨어지지만, 더 큰 표현식에도 이 구문을 사용할 수 있다.
+> 조건이 너무 복잡해 졌다는 것은 컴포넌트를 분리해야 하는 시점이라고 생각하자.
+```jsx
+render() {
+  const isLoggedIn = this.state.isLoggedIn;
+  return (
+    <div>
+      {isLoggedIn
+        ? <LogoutButton onClick={this.handleLogoutClick} />
+        : <LoginButton onClick={this.handleLoginClick} />
+      }
+    </div>
+  );
+}
+```
+<b>컴포넌트가 렌더링되는 것을 막기</b>
+* 다른 컴포넌트에 의해 어떤 컴포넌트가 렌더링되는 것을 숨기고 싶을 때가 있을 수
+있다.
+* 이 때는 렌더링 결과를 출력하는 대신 null을 반환하면 해결할 수 있다.  
+
+warning이 발생하면 warning메시지를 출력하고, 정상이면 아무 것도 출력하지 않는 앱이다.
+```jsx-
+function WarningBanner(props) {
+  if (!props.warn) {
+    return null;
+  }
+
+  return (
+    <div className="warning">
+      Warning!
+    </div>
+  );
+}
+
+class Page extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {showWarning: true};
+    this.handleToggleClick = this.handleToggleClick.bind(this);
+  }
+
+  handleToggleClick() {
+    this.setState(state => ({
+      showWarning: !state.showWarning
+    }));
+  }
+
+  render() {
+    return (
+      <div>
+        <WarningBanner warn={this.state.showWarning} />
+        <button onClick={this.handleToggleClick}>
+          {this.state.showWarning ? 'Hide' : 'Show'}
+        </button>
+      </div>
+    );
+  }
+}
+
+ReactDOM.render(
+  <Page />,
+  document.getElementById('root')
+);
+```
+* WarningBanner컴포넌트는 메인 컴포넌트인 Page로 부터 props를 전달받아, false이
+면 null을 반환하고, true이면 엘리먼트를 반환한다.
+*  page컴포넌트는 버튼이 클릭되면 handleToggleClick 헨들러를 통해 showWarning
+state를 토글하고, 그 상태와 함께 버튼의 메시지를 WarningBanner컴포넌트에 전달한다.
+> null을 반환하는 것은 생명주기 메서드 호출에 영향을 주지 않는다.
+
+---
+
+<b>리스트와 Key</b>
+* 배열의 값을 반환할 때는 map()함수를 사용한다. 변환하여 반환하는 것도 가능하다.
+```jsx
+const numbers = [1, 2, 3, 4, 5];
+const doubled = numbers.map((number) => number * 2);
+console.log(doubled);
+```
+>  react에서 배열을 리스트로 만드는 방식도 이와 유사하다,
+
+1. 여러개의 엘리먼트 렌더링 하기
+* 배열로 부터 항목을 꺼네 < li >엘리먼트에 넣어 저장하고, 이 것을 < ul >엘리
+먼트 안에 포함시켜 DOM에 렌더링한다.
+```jsx
+ReactDOM.render(
+  <ul>{listItems}</ul>,
+  document.getElementById('root')
+);
+```
+2. 기본 리스트 컴포넌트
+* numbers 배열을 받아서 순서 없는 엘리먼트 리스트를 출력하는 컴포넌트로 리팩토링할 수 있습니다.
+```jsx
+function NumberList(props) {
+  const numbers = props.numbers;
+  const listItems = numbers.map((number) =>
+    <li>{number}</li>
+  );
+  return (
+    <ul>{listItems}</ul>
+  );
+}
+
+const numbers = [1, 2, 3, 4, 5];
+ReactDOM.render(
+  <NumberList numbers={numbers} />,
+  document.getElementById('root')
+);
+```
+* 이 예제를 실행하면 key를 넣어야 한다는 경고가 뜬다.
+* key props를 넣어 주면된다.
+* 꼭 스트링으로 변환해 줘야 하는 것은 아니다.
+
+3. key 
+* Key는 React가 어떤 항목을 변경, 추가 또는 삭제할지 식별하는 것을 돕는다.
+* key는 엘리먼트에 고유성을 부여하기 위해 배열 내부의 요소에 지정해야 한다
+* 일반적으로 항목이 고정적일 경우는 배열의 index값을 사용한다.
+* 다만 항목의 순서가 바뀔 수 있는 경우는 index사용을 권장하지 않는다
+* 이 것 때문에 성능이 저하되거나 컴포넌트의 state와 관련된 문제가 발생할 수 있기
+때문이다.
+
+4. Key로 컴포넌트 추출하기
+*  ListItem 안에 있는 <li> 엘리먼트가 아니라 분해하는 곳의 <ListItem /> 엘
+리먼트가 key를 가져야 한다.
+```jsx
+function ListItem(props) {
+  // 맞습니다! 여기에는 key를 지정할 필요가 없습니다.
+  return <li>{props.value}</li>;
+}
+
+function NumberList(props) {
+  const numbers = props.numbers;
+  const listItems = numbers.map((number) =>
+    // 맞습니다! 배열 안에 key를 지정해야 합니다.
+    <ListItem key={number.toString()} value={number} />
+  );
+  return (
+    <ul>
+      {listItems}
+    </ul>
+  );
+}
+
+const numbers = [1, 2, 3, 4, 5];
+ReactDOM.render(
+  <NumberList numbers={numbers} />,
+  document.getElementById('root')
+);
+```
+
+5. Key는 배열내 요소 사이에서만 고유한 값이면 된다
+* Key는 배열내의 요소 사이에서 고유 하면 되고, 전체 범위에서 고유할 필요는 없다.
+* 당연히 두 개의 다른 배열을 사용할 때 동일한 key를 사용할 수 있다
+* 첫 번째 예는 sidebar와 content가 같은 key값을 사용하는 것을 보여준다.
+* 컴포넌트에 key로 사용할 prop을 전달 할 수는 있지만 key자체를 전달할 수는 없다
+* 아래 코드에서는 Post컴포넌트에서 props.id는 읽을 수 있지만, props.key는 읽을 수 없다.
+```jsx
+const content = posts.map((post) =>
+  <Post
+    key={post.id}
+    id={post.id}
+    title={post.title} />
+);
+```
+* key값은 key로만 사용되어야 한다
+
+6. JSX에 map() 포함시키기
+* 별도의 listItems 변수를 선언하고 이를 JSX에 포함시키기
+```jsx
+function NumberList(props) {
+  const numbers = props.numbers;
+  const listItems = numbers.map((number) =>
+    <ListItem key={number.toString()}
+              value={number} />
+  );
+  return (
+    <ul>
+      {listItems}
+    </ul>
+  );
+}
+```
+* JSX를 사용하면 중괄호 안에 모든 표현식을 포함 시킬 수 있으므로 map() 함수의 결
+과를 인라인으로 처리할 수 있다
+```jsx
+function NumberList(props) {
+  const numbers = props.numbers;
+  return (
+    <ul>
+      {numbers.map((number) =>
+        <ListItem key={number.toString()}
+                  value={number} />
+      )}
+    </ul>
+  );
+}
+```
+* 이 방식을 사용하면 코드가 깔끔해 지지만 사용에 주의를 해야한다
+* 사용전에 가독성이 좋지 않다면 변수로 추출하는 것이 나을 수도 있다.
+
+<b>Form</b>
+
+* HTML의 form 엘리먼트는 내부 state를 갖기 때문에 React의 다른 DOM 엘리먼트와
+는 다르게 동작한다.
+* 아래 코드가 예가 순수한 HTML이라면이 폼은 name을 입력 받고, 폼을 제출하면 새
+로운 페이지로 이동한다.
+```jsx
+<form>
+  <label>
+    Name:
+    <input type="text" name="name" />
+  </label>
+  <input type="submit" value="Submit" />
+</form>
+```
+* React에서도 동일한 동작을 원한다면 그대로 사용해도 동작된다.
+* 일반적인 경우라면 JS함수로 폼의 제출을 처리하고, 사용자가 폼에 입력한
+데이터에 접근하도록 하는 것이 편리하다.
+* 표준 방식은 “제어 컴포넌트 (controlled components)“를 사용하는 것이다.
+
+1. 제어 컴포넌트
+* HTML에서는 form의 각 엘리먼트는 사용자의 입력을 기반으
+로 자신의 state를 관리하고 업데이트 한다.
+* React에서는 변경할 수 있는 state가 컴포넌트의 state 속성에 저장되며,
+setState()함수를 이용해서 업데이트 한다.
+* 폼에서 사용되는 값을 React의 state로 일원화 하면 관리를 편하게 할 수 있
+다
+* React의 state를 통해 값이 제어되는 입력 폼 엘리먼트를 “제어 컴포넌트 (controlled
+component)“라고 한다.
+```jsx
+class NameForm extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {value: ''};
+
+    this.handleChange = this.handleChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
+  }
+
+  handleChange(event) {
+    this.setState({value: event.target.value});
+  }
+
+  handleSubmit(event) {
+    alert('A name was submitted: ' + this.state.value);
+    event.preventDefault();
+  }
+
+  render() {
+    return (
+      <form onSubmit={this.handleSubmit}>
+        <label>
+          Name:
+          <input type="text" value={this.state.value} onChange={this.handleChange} />
+        </label>
+        <input type="submit" value="Submit" />
+      </form>
+    );
+  }
+}
+```
+* value에 표시되는 값은 this.state.value가 된다
+* 한 입력값의 업데이트는 handleChange의 setState를 통해 이루어 진다.
+
+2. textarea 태그
+* HTML에서 textarea 엘리먼트는 텍스트를 DOM상에서의 자식으로 정의한다.
+* React에서 textarea는 value 속성을 사용한다.
+* react의 textarea는 싱글 태그를 사용하여 작성한다
+> 문서에는 "생성자에서 초기화하기 때문에 textarea는 일부 텍스트를 가진채 시작되
+는 점을 주의해주세요."라고 쓰여 있지만 꼭 초기 값이 있어야 되는 것은 아니다
+
+3. select 태그
+
+* HTML에서 select는 드롭 다운 목록을 만든다.
+* HTML에서는 option 태그의 속성으로 selected를 사용하고 있으나, react에서는
+select 태그의 속성으로 지정한다
+* select의 value에 option의 value 값을를 지정해서 selected를 대신한다.
+* state의 관리는 textarea와 동일하다.
+> select 태그에 multiple 옵션을 허용하면, value 속성에 배열을 전달할 수 있다.
+```jsx
+<select multiple={true} value={['B', 'C']}>
+```
+
+4. file input 태그 
+* HTML에서 < input type="file"> 은 사용자가 하나 이상의 파일을 로컬에서 서버로
+업로드하거나, File API를 통해 JavaScript로 조작할 수 있다.
+* 값이 읽기 전용이기 때문에 React에서는 비제어 컴포넌트 (uncontrolled
+components)이다
+
+5. 다중 입력 제어하기
+* 여러개의 input 엘리먼트를 제어해야 한다면 각 엘리먼트에 name 속성을 추가하고,
+event.target.name 값을 통해 핸들러가 어떤 작업을 할 지 선택할 수 있게 해준다
+* 주어진 input 태그의 name에 일치하는 state를 업데이트하기 위해 ES6의 computed
+property name 구문을 사용한다.
+* setState()는 자동적으로 현재 state에 일부 state만을 갱신하기 때문에 바뀐 부
+분에 대해서만 호출하면 된다.
+
+6. 제어되는 Input Null 값
+* 제어 컴포넌트에 value prop을 지정하면 의도하지 않는 한 사용자가 변경할 수 없다.
+* value를 설정했는데 여전히 수정할 수 있다면, 실수로 value를 undefined나 null로 설
+정했을 수 있다
+
+7. 제어 컴포넌트의 대안
+* 데이터를 변경할 수 있는 모든 방법에 대해 이벤트 핸들러를 작성하고, React 컴포넌
+트를 통해 모든 입력 상태를 연결해야 하기 때문에 때로는 제어 컴포넌트를 사용하
+는 게 불편할 수도 있다
+* 이럴경우에 입력 폼을 구현하기 위한 대체 기술인 비제어 컴포넌트 (uncontrolled
+components)를 사용할 수 있다.
+> 해결책: Formik 프레임워크 사용을 권장한다.
+
+<b>sate를 parents component로 올리기</b>
+
+* 때로는 동일한 데이터에 대한 변경사항을 여러 컴포넌트에 반영해야 할 필요가 있
+다이럴 때는 가장 가깝고, 공통된 parents component로 state를 올리는 것이 좋다.  
+
+주어진 온도에서 물의 끓는 여부를 추정하는 온도 계산기를 만들기.
+* BoilingVerdict라는 이름의 컴포넌트를 만들고 섭씨온도를 의미하는 celsius prop를 받아서 이 온도가 물이 끓기에 충분한지 여부를 출력한다.
+```jsx
+function BoilingVerdict(props) {
+  if (props.celsius >= 100) {
+    return <p>The water would boil.</p>;
+  }
+  return <p>The water would not boil.</p>;
+}
+```
+* Calculator라는 컴포넌트를 만들어보자. 이 컴포넌트는 온도를 입력할 수 있는 < input >을 렌더링하고 그 값을 this.state.temperature에 저장한다.
+* 현재 입력값에 대한 BoilingVerdict 컴포넌트를 렌더링한다.
+```jsx
+class Calculator extends React.Component {
+  constructor(props) {
+    super(props);
+    this.handleChange = this.handleChange.bind(this);
+    this.state = {temperature: ''};
+  }
+
+  handleChange(e) {
+    this.setState({temperature: e.target.value});
+  }
+
+  render() {
+    const temperature = this.state.temperature;
+    return (
+      <fieldset>
+        <legend>Enter temperature in Celsius:</legend>
+        <input
+          value={temperature}
+          onChange={this.handleChange} />
+        <BoilingVerdict
+          celsius={parseFloat(temperature)} />
+      </fieldset>
+    );
+  }
+}
+```
+두 번째 Input 추가하기
+* 섭씨 입력 필드뿐만 아니라 화씨 입력 필드를 추가하고 두 필드 간에 동기화 상태를 유지하도록 해보자.
+* Calculator에서 TemperatureInput 컴포넌트를 빼내는 작업부터 시작해봅시다. 또한 "c" 또는 "f"의 값을 가질 수 있는 scale prop를 추가.
+```jsx
+const scaleNames = {
+  c: 'Celsius',
+  f: 'Fahrenheit'
+};
+
+class TemperatureInput extends React.Component {
+  constructor(props) {
+    super(props);
+    this.handleChange = this.handleChange.bind(this);
+    this.state = {temperature: ''};
+  }
+
+  handleChange(e) {
+    this.setState({temperature: e.target.value});
+  }
+
+  render() {
+    const temperature = this.state.temperature;
+    const scale = this.props.scale;
+    return (
+      <fieldset>
+        <legend>Enter temperature in {scaleNames[scale]}:</legend>
+        <input value={temperature}
+               onChange={this.handleChange} />
+      </fieldset>
+    );
+  }
+}
+```
+* Calculator가 분리된 두 개의 온도 입력 필드를 렌더링하도록 변경할 수 있다.
+```jsx
+class Calculator extends React.Component {
+  render() {
+    return (
+      <div>
+        <TemperatureInput scale="c" />
+        <TemperatureInput scale="f" />
+      </div>
+    );
+  }
+}
+```
+* 두 개의 입력 필드를 갖게 되었지만 둘 중 하나에 온도를 입력하더라도 다른 하나는 갱신되지 않는 문제가 있다.  두 입력 필드 간에 동기화 상태를 유지하고자 했던 원래 요구사항과는 맞지 않다.
+
+변환 함수 작성하기
+* 섭씨를 화씨로, 또는 그 반대로 변환해주는 함수를 작성해보자.
+```jsx
+function toCelsius(fahrenheit) {
+  return (fahrenheit - 32) * 5 / 9;
+}
+
+function toFahrenheit(celsius) {
+  return (celsius * 9 / 5) + 32;
+}
+```
+* 두 함수는 숫자를 변환한다.
+
+올바르지 않은 temperature 값에 대해서는 빈 문자열을 반환하고 값을 소수점 세 번째 자리로 반올림하여 출력한다.
+```jsx
+function tryConvert(temperature, convert) {
+  const input = parseFloat(temperature);
+  if (Number.isNaN(input)) {
+    return '';
+  }
+  const output = convert(input);
+  const rounded = Math.round(output * 1000) / 1000;
+  return rounded.toString();
+}
+```
+* tryConvert('abc', toCelsius)는 빈 문자열을 반환하고 tryConvert('10.22', toFahrenheit)는 '50.396'을 반환한다.
+
+State 끌어올리기
+* 두 TemperatureInput 컴포넌트가 각각의 입력값을 각자의 state에 독립적으로 저장하고 있습니다.
+```jsx
+class TemperatureInput extends React.Component {
+  constructor(props) {
+    super(props);
+    this.handleChange = this.handleChange.bind(this);
+    this.state = {temperature: ''};
+  }
+
+  handleChange(e) {
+    this.setState({temperature: e.target.value});
+  }
+
+  render() {
+    const temperature = this.state.temperature;
+    // ...
+```
+* 우리는 두 입력값이 서로 동기화된 상태로 있길 원한다. 섭씨온도 입력값을
+변경할 경우 화씨온도 입력값 역시 변환된 온도를 반영할 수 있어야 하며, 그 반대의
+경우에도 마찬가지여야 한다.
+* React에서 state를 공유하는 일은 그 값을 필요로 하는 컴포넌트 간의 가장 가까운
+공통 조상으로 state를 끌어올림으로써 구현할 수 있다. 이 방법을 “state 끌어올
+리기”라고 부른다.
+* 이제 TemperatureInput이 개별적으로 가지고 있던 지역 state를 지우는 대신
+Calculator로 그 값을 옮기도록 한다.
+* 부모인 Calculator가 공유될 state를 소유하고 있으면, 이 컴포넌트는 두 입력 필드의
+현재 온도에 대한 state로 작동하게 된다.
+* 이를 통해 두 입력 필드가 서로 간에 일관된 값을 유지하도록 만들 수 있다.
+* TemperatureInput 컴포넌트의 props가 같은 부모인 Calculator로부터 전달되기
+때문에, 두 입력 필드는 항상 동기화된 상태를 유지할 수 있게 된다
+
+<b>합성 (Composition) vs 상속 (Inheritance)</b>
+
+* React는 강력한 합성 모델을 갖고 있으며, 상속 대신 합성을 사용하여 컴포넌트 간에
+코드를 재사용하는 것이 좋다.
+* React를 처음 접한 개발자들이 종종 상속으로 인해 부딪히는 몇 가
+지 문제들과 합성을 통해 이러한 문제를 해결하는 방법을 살펴본다.
+
+1. 컴포넌트에 다른 컴포넌트 담기
+
+* 컴포넌트들 중에는 어떤 자식 엘리먼트가 들어올 지 미리 예상할 수 없는 경우가 있
+다.
+* 범용적인 ‘박스’ 역할을 하는 Sidebar 혹은 Dialog와 같은 컴포넌트에서 특히 자주 볼
+수 있다.
+* 이러한 컴포넌트에서는 특수한 children prop을 사용하여 자식 엘리먼트를 출력에
+그대로 전달하는 것이 좋다.
+```jsx
+function FancyBorder(props) {
+  return (
+    <div className={'FancyBorder FancyBorder-' + props.color}>
+      {props.children}
+    </div>
+  );
+}
+```
+* 이러한 방식으로 다른 컴포넌트에서 JSX를 중첩하여 임의의 자식을 전달할 수 있다.
+```jsx
+function WelcomeDialog() {
+  return (
+    <FancyBorder color="blue">
+      <h1 className="Dialog-title">
+        Welcome
+      </h1>
+      <p className="Dialog-message">
+        Thank you for visiting our spacecraft!
+      </p>
+    </FancyBorder>
+  );
+}
+```
+* < FancyBorder > JSX 태그 안에 있는 엘리먼트가 FancyBorder 컴포넌트의 children
+prop으로 전달된다.
+* FancyBorder는 {props.children}을 <div> 안에 렌더링하므로 전달된 엘리먼트들이
+최종 출력된다.
+* 흔하진 않지만 종종 컴포넌트에 여러 개의 “자리(holes)”가 필요할 수도 있습니다. 이
+런 경우에는 children 대신 자신만의 고유한 방식을 적용할 수도 있다.
+```jsx
+function SplitPane(props) {
+  return (
+    <div className="SplitPane">
+      <div className="SplitPane-left">
+        {props.left}
+      </div>
+      <div className="SplitPane-right">
+        {props.right}
+      </div>
+    </div>
+  );
+}
+
+function App() {
+  return (
+    <SplitPane
+      left={
+        <Contacts />
+      }
+      right={
+        <Chat />
+      } />
+  );
+}
+```
+* < Contacts />와 < Chat />같은 React 엘리먼트는 단지 객체이기 때문에 다른 데이터
+처럼 prop으로 전달할 수 있다.
+* 이러한 접근은 다른 라이브러리의 “슬롯 (slots)“과 비슷해보이지만, React에서 prop
+으로 전달할 수 있는 것에는 제한이 없다.
+
+2. 특수화
+* 경우에 따라 어떤 컴포넌트는 “특수한 경우”를 고려해야 하는 경우가 있습니다. 예를
+들어, WelcomeDialog는 Dialog의 특수한 경우라고 할 수 있다.
+* React에서는 합성을 통해 해결할 수 있다.
+* 더 “구체적인” 컴포넌트가 “일반적인” 컴포넌트를 렌더링하고 props를 통해 내용을
+구성한다
+```jsx
+function Dialog(props) {
+  return (
+    <FancyBorder color="blue">
+      <h1 className="Dialog-title">
+        {props.title}
+      </h1>
+      <p className="Dialog-message">
+        {props.message}
+      </p>
+    </FancyBorder>
+  );
+}
+
+function WelcomeDialog() {
+  return (
+    <Dialog
+      title="Welcome"
+      message="Thank you for visiting our spacecraft!" />
+  );
+}
+```
+3. 상속은?
+
+* Facebook에서는 수천 개의 React 컴포넌트를 사용하지만, 컴포넌트를 상속 계층 구
+조로 작성을 권장할만한 사례를 아직 찾지 못했다.
+* props와 합성은 명시적이고도 안전한 방법으로 컴포넌트의 모양과 동작을 커스터마
+이징하는데 필요한 모든 유연성을 제공한다.
+* 컴포넌트가 원시 타입의 값, React 엘리먼트 혹은 함수 등 어떠한 props도 받을 수 있
+다는 것을 기억하자.
+* UI가 아닌 기능을 여러 컴포넌트에서 재사용하기를 원한다면, 별도의 JavaScript 모
+듈로 분리하는 것이 좋다.
+* 컴포넌트에서 해당 함수, 객체, 클래스 등을 import 하여 사용할 수 있다
+> 상속받을 필요가 없다.
+
+<b>React로 사고하기</b>
+
+* React는 JavaScript로 규모가 크고 빠른 웹 애플리케이션을 만드는 가장 좋은 방법이
+다
+* React는 Facebook과 Instagram을 통해 확장성을 입증했다.
+* React의 가장 멋진 점 중 하나는 앱을 설계하는 방식이다.
+*  React로 상품들을 검색할 수 있는 데이터 테이블을 만드는 과정을 함
+께 생각해 보자
+
+1. UI를 컴포넌트 계층 구조로 나누기
+* 우리가 할 첫 번째 일은 하위 컴포넌트를 포함한 모든 컴포넌트의 주변에 박스를 그
+리고 그 각각에 이름을 붙인다.
+* 우리가 새로운 함수나 객체를 만들 때처럼 만들면 된다
+* 한 가지 테크닉은 단일 책임 원칙이다.
+* 이는 하나의 컴포넌트는 한 가지 일을 하는게 이상적이라는 원칙이다. 하나의 컴포넌트가 점점 커지게 된다면 보다 작은 하위 컴포넌트로 분리하는 것이
+바람직하다.
+
+2.  React로 정적인 버전 만들기
+* 가장 쉬운 방법은 데이터 모델을 가지고 UI를 렌더링은 되지만 아무 동작도 없는 버
+전을 만들어보는 것이다.
+* 이처럼 과정을 나누는 것이 좋은데, 정적 버전을 만드는 것은 생각은 적게 필요하지
+만 타이핑은 많이 필요로 하고, 상호작용을 만드는 것은 생각은 많이 해야 하지만 타
+이핑은 적게 필요로 하기 때문이다.
+* 데이터 모델을 렌더링하는 컴포넌트를 만들고 props 를 이용해 데이터를 전달해 준
+다.
+* props는 부모가 자식에게 데이터를 넘겨줄 때 사용할 수 있는 방법이다
+* 정적 버전을 만들기 위해 state를 사용하지 말자
+* state는 오직 상호작용을 위해, 즉 시간이 지남에 따라 데이터가 바뀌는 것에 사용한
+다.
+* 우리는 앱의 정적 버전을 만들고 있기 때문에 지금은 필요하지 않다
+
+3. UI state에 대한 최소한의 (하지만 완전한) 표현 찾아내기
+* UI를 상호작용하게 만들려면 기반 데이터 모델을 변경할 수 있는 방법이 있어야 한
+다.
+* React에서는 이를 state를 통해 변경한다.
+* 애플리케이션을 올바르게 만들기 위해서는 애플리케이션에서 필요로 하는 변경 가
+능한 state의 최소 집합을 생각해보아야 한다.
+> 여기서 핵심은 중복배제원칙이다.
+* 애플리케이션이 필요로 하는 가장 최소한의 state를 찾고 이를 통해 나머지 모든 것
+들이 필요에 따라 그때그때 계산되도록 만드는 것이다
+* 예를 들어 TODO 리스트를 만든다고 하면, TODO 아이템을 저장하는 배열만 유지하
+고 TODO 아이템의 개수를 표현하는 state를 별도로 만들지 않는다. TODO 갯수를
+렌더링해야한다면 TODO 아이템 배열의 길이를 가져오면 된다.
+
+4. State가 어디에 있어야 할 지 찾기
+* 앞서 최소한으로 필요한 state가 뭔지 찾아낸다.
+* 다음으로는 어떤 컴포넌트가 state를 변경하거나 소유할지 찾아야 한다.
+> React는 항상 컴포넌트 계층구조를 따라 아래로 내려가는 단방향 데이터 흐름을 따른다.
+* 어떤 컴포넌트가 어떤 state를 가져야 하는 지 바로 결정하기 어려울 수도 있다.
+* * <b>애플리케이션이 갖는 각각의 state에 대해서</b>
+* * state를 기반으로 렌더링하는 모든 컴포넌트를 찾는다
+* * 공통 소유 컴포넌트 (common owner component)를 찾는다
+* * > 계층 구조 내에서 특정 state가 있어야 하는 모든 컴포넌트들의 상위에 있는 하나의
+* * 공통 혹은 더 상위에 있는 컴포넌트가 state를 가져야 한다.
+* * state를 소유할 적절한 컴포넌트를 찾지 못했다면, state를 소유하는 컴포넌트를 하
+나 만들어서 공통 오너 컴포넌트의 상위 계층에 추가한다.
+
+5. 역방향 데이터 흐름 추가하기
+* 지금까지 우리는 계층 구조 아래로 흐르는 props와 state를 이용해서 앱을 만들었다
+* 다른 방향의 데이터 흐름을 만들어볼 시간이다
+* 계층 구조의 하단에 있는 폼 컴포넌트에서 FilterableProductTable의 state를 업데이
+트할 수 있어야 한다.
+* React는 전통적인 양방향 데이터 바인딩(two-way data binding)과 비교하면, 더 많
+은 타이핑을 필요로 하지만 데이터 흐름을 명시적으로 보이게 만들어서 프로그램이 어떻게 동작하는지 파악할 수 있게 도와준다.
+
+<b>Hook의 개요</b>
+
+* Hook은 React 버전 16.8부터 React 요소로 새로 추가되었다.
+* 기존 Class 바탕의 코드를 작성할 필요 없이 상태 값과 여러 React의 기능을 사용할 수 있다.
+```jsx
+import React, { useState } from 'react';
+
+function Example() {
+  // "count"라는 새로운 상태 값을 정의합니다.
+  const [count, setCount] = useState(0);
+
+  return (
+    <div>
+      <p>You clicked {count} times</p>
+      <button onClick={() => setCount(count + 1)}>
+        Click me
+      </button>
+    </div>
+  );
+}
+```
+> useState는 우리가 “Hook”에서 처음 배우게 될 함수다
+* Hook의 특징
+
+  1. 선택적 사용 기존의 코드를 다시 작성할 필요 없이 일부의 컴포넌트들 안에서 Hook을 사용할 수 있다.
+  2. 100%이전버전과의 호환성 Hook은 호환성을 깨뜨리는 변화가 없다.
+  3. 현재 사용 가능 Hook은 배포 v16.8.0 에서 사용할 수 있다.
 ## [ 12월 01일 ]
 ### 학습내용 
 
